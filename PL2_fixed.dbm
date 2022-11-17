@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="29,449" last-zoom="0.65" max-obj-count="9"
+<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="28,357" last-zoom="0.65" max-obj-count="9"
 	 default-owner="postgres"
 	 layers="Default layer" active-layers="0">
 <database name="new_database" is-template="false" allow-conns="true">
@@ -132,9 +132,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="Tamanno">
 		<type name="smallint" length="0"/>
 	</column>
-	<column name="Id">
+	<column name="Id" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
+	<constraint name="Caratula_pk" type="pk-constr" table="public.&quot;Caratula&quot;">
+		<columns names="Id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
 		<object name="Anno_Peliculas" index="2"/>
@@ -170,9 +173,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="texto">
 		<type name="varchar" length="0"/>
 	</column>
-	<column name="Id">
+	<column name="Id" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
+	<constraint name="critica_pk" type="pk-constr" table="public.critica">
+		<columns names="Id" ref-type="src-columns"/>
+	</constraint>
 
 	<customidxs object-type="column">
 		<object name="Anno_Peliculas" index="5"/>
