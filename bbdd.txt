@@ -1,0 +1,108 @@
+pl2-1:
+explicar que almacena la base de datos
+el paso a modelo relacional,explicando tabla a tabla
+El modelo relacional del pgmodeler(no necesario)
+Fichero sql de la base de datos-generado por gmodelr y modificaciones
+Mayus-da comillay luego es un coñazo
+muchos a muchos es un coñazo-renombrar
+Renombrar si es necesario a nombres mas faciles
+PARTE2:
+codigo sql realizado(TODO)
+Memoria de paso a paso como se ha realizado y porque se ha realizado cada paso.
+Fecha en 10 dias desde hoy 
+------------------------------------------------------------------
+La segunda practica se hace en 3 entregas
+Este domingo es la primera entrega
+La segunda parte es carga de datos
+La tercera parte son consultas 
+-----------------------
+CARGA DE DATOS
+Ficheros -hay erratas-
+Se han juntado las peliculas del principio con otras
+Realizado diseño relacional q no tiene porque ajustarse con este esquema
+Tenemos dos esquemas:
+	realizado hasta ahora :Esquemafinal.
+		tablasFinales-se corresponden con modelo relacional
+		TablasFinales->Modelo relacional
+	Esquema intermedio:
+		tabla por fichero csv,mismos atributos
+		-en este esquema vamos a copiar constrains-?
+		este esquema no tiene constrains
+		Tabla con los mismo atributos que el csv y sin constrain es decir tablas sin relacion entre ellas.
+		Cambiamos el delimitador siendo esta vez el tabulador
+		create table-no hace falta nada
+		Los 6 csv importarlos a las 6 tablas del esquema intermedio con la orden :\copy "nombre"-ejemplo:public.actores_intermedio- from 'RUTA'csv header delimiter E'\t' NULL 'NULL' encoding 'UTF8'
+		UTF8-IMPORTANTE
+Asi obtendriamos los esquemas intermedios de todos los datos
+Se puede usar el pgAdmin pero no las capturas de pantalla de estas , se admite resultados de tablas como mucho
+------------
+En el public tiene cargado todas las tablas csv, en las intermedias
+en la final tiene otras tablas distintas ,de esuqema final
+	en pg modeler o psql se puede hacer de ambas maneras
+	Al exportarlo sale un codigo,create database debe conectarse,si desde la base de datos creamos otra,dara error.
+	Crear un esquema q no sea PUBLIC
+	si las tablas estan sobre public da errores,si lo hacemos sobre otro esuqema esmas sencillo
+	search_path-no hace falta el nombre del esquema delante 
+	ddl
+	ALTER TABLE:modifica la tabla 
+
+	
+	
+-------
+Para esquema final
+Creamos base de datos (create database peliculas2;)
+Creada la base de datos , nos conectamos a ella('\c peliculas2')
+Ejecutamos el sql('\i 'RUTA(las barras del 7)/(peliculas.sql-nombre del fichero)'
+En teoria se crean todas las tablas 
+\d para comprobar si esta realizado bien
+Si queremos ver que tiene una tabla en concreto : \d nombre de la tabla-ej:peliculas
+No deberia haber caracteres extraños
+------------------
+set search path to para mostrar todos los esquemas 
+----
+Como cargamos al final:
+INSERT INTO 'consulta'
+no hace falta cargar atributos de mas,simplemente daran un null
+-----------
+especificar que no esten porque si estan en ambos casos dara error ejemplo directores y actores-WHERE
+------------
+antes de hacer la inserccion hacemos la consulta 
+-----------
+CONSIDERACIONES-IMPORTANTE
+----------
+Puede q se deban hacer modificaiones en el modelo realizado,estas modificaciones hay que informarlas en la memoria.
+------
+Con la tabla de peliculas original 
+no tenemos director cuano insertamos peliculas debemos insertarlo
+Crear tabla generos :regexp_split_to_table:separa un campo de un  atributo por un caracter.Genera una tabla con su genero y su pelicula por separado
+regexp_split_to_table(sintaxis)
+------------------
+Peliculas es la mas complicada 
+join de peliculas con el director.pelis
+Me une las pelis con los de director
+Asi mi consulta puedo añadir
+Select atributos para tabla final peliculas
+---------
+crear esquermas intermedios y hacer lo de las csv 
+hacer consultas para pasar de la intermedia a la final
+el orden el importante
+EMPEZAMOS POR LAS TABLAS SIN FK
+los errores dan pistas
+:)
+--------------
+Entrega es el prox domingo:lleva su tiempo
+Dudas para el jueves-antes empecemos ,antes acabemos.
+----------
+
+
+
+
+
+
+
+
+
+
+
+		
+
