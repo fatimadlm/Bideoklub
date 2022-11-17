@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="6"
+<dbmodel pgmodeler-ver="0.9.3-beta1" use-changelog="false" last-position="402,281" last-zoom="0.65" max-obj-count="9"
 	 default-owner="postgres"
 	 layers="Default layer" active-layers="0">
 <database name="new_database" is-template="false" allow-conns="true">
@@ -15,7 +15,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="Peliculas" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="860" y="940"/>
+	<position x="680" y="940"/>
 	<column name="Anno" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
@@ -122,10 +122,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 </relationship>
 
-<table name="Caratula" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="Caratula" layer="0" collapse-mode="2" max-obj-count="6" z-value="0">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1340" y="920"/>
+	<position x="1260" y="1260"/>
 	<column name="Tipo">
 		<type name="varchar" length="0"/>
 	</column>
@@ -140,6 +140,67 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#494d9b"
 	 src-table="public.&quot;Peliculas&quot;"
+	 dst-table="public.&quot;Caratula&quot;"
+	 src-required="false" dst-required="false"/>
+
+<table name="critica" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1300" y="940"/>
+	<column name="critico">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="puntuacion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="texto">
+		<type name="varchar" length="0"/>
+	</column>
+</table>
+
+<table name="web" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1760" y="940"/>
+	<column name="url" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="tipo">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="web_pk" type="pk-constr" table="public.web">
+		<columns names="url" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="alojada" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#270ae1"
+	 src-table="public.web"
+	 dst-table="public.critica"
+	 src-required="false" dst-required="false">
+	<column name="fecha">
+		<type name="date" length="0"/>
+	</column>
+</relationship>
+
+<relationship name="tiene" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#bf3e61"
+	 src-table="public.&quot;Peliculas&quot;"
+	 dst-table="public.critica"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="Alojada" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ef10ba"
+	 src-table="public.web"
 	 dst-table="public.&quot;Caratula&quot;"
 	 src-required="false" dst-required="false"/>
 
