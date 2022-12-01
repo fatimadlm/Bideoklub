@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.4" use-changelog="false" last-position="0,0" last-zoom="1" max-obj-count="12"
+	 default-owner="postgres">
+<database name="new_database" is-template="false" allow-conns="true">
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="peliculas" layers="0" rect-visible="true" fill-color="#e1e1e1">
+	<role name="postgres"/>
+</schema>
+
+<table name="personal" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="40" y="180"/>
+	<column name="nombre" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="nacionalidad">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="año_nacimiento">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="personal_pk" type="pk-constr" table="peliculas.personal">
+		<columns names="nombre" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="actor" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="460" y="100"/>
+
+	<customidxs object-type="column">
+		<object name="nombre_personal" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="actor_pk" index="0"/>
+		<object name="personal_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="actor_has_one_personal" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#545cee"
+	 src-table="peliculas.personal"
+	 dst-table="peliculas.actor"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="director" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="440" y="340"/>
+
+	<customidxs object-type="column">
+		<object name="nombre_personal" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="director_pk" index="0"/>
+		<object name="personal_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="director_has_one_personal" type="rel11" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#1221d0"
+	 src-table="peliculas.personal"
+	 dst-table="peliculas.director"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="peliculas" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="1340" y="300"/>
+	<column name="año" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="titulo" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="duracion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="idioma">
+		<type name="char" length="2"/>
+	</column>
+	<column name="calificacion">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="peliculas_pk" type="pk-constr" table="peliculas.peliculas">
+		<columns names="año,titulo" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="nombre_personal_director" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="director_fk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="dirige" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#0a854e"
+	 src-table="peliculas.director"
+	 dst-table="peliculas.peliculas"
+	 src-required="true" dst-required="false"/>
+
+<table name="actua" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="peliculas"/>
+	<position x="840" y="140"/>
+
+	<customidxs object-type="column">
+		<object name="nombre_personal_actor" index="0"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="actor_fk" index="1"/>
+		<object name="actua_pk" index="0"/>
+	</customidxs>
+</table>
+
+<relationship name="actor_has_many_many_actor_has_many_peliculas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="peliculas.actor"
+	 dst-table="peliculas.actua"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="peliculas_has_many_many_actor_has_many_peliculas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 src-table="peliculas.peliculas"
+	 dst-table="peliculas.actua"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="generos" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="1360" y="80"/>
+	<column name="genero" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="generos_pk" type="pk-constr" table="peliculas.generos">
+		<columns names="genero" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="peliculas_has_many_generos" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f98803"
+	 src-table="peliculas.peliculas"
+	 dst-table="peliculas.generos"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="criticas" layers="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="900" y="560"/>
+	<column name="critico" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="puntuacion">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="texto">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="criticas_pk" type="pk-constr" table="peliculas.criticas">
+		<columns names="critico" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="año_peliculas" index="3"/>
+		<object name="titulo_peliculas" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="peliculas_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="tiene" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#359d44"
+	 src-table="peliculas.peliculas"
+	 dst-table="peliculas.criticas"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="caratulas" layers="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="1560" y="580"/>
+	<column name="tipo" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="tamaño">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="caratulas_pk" type="pk-constr" table="peliculas.caratulas">
+		<columns names="tipo" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="año_peliculas" index="2"/>
+		<object name="titulo_peliculas" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="peliculas_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="peliculas_has_many_caratulas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#681985"
+	 src-table="peliculas.peliculas"
+	 dst-table="peliculas.caratulas"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="pag_web" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="peliculas"/>
+	<role name="postgres"/>
+	<position x="1300" y="780"/>
+	<column name="url" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="tipo">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="pag_web_pk" type="pk-constr" table="peliculas.pag_web">
+		<columns names="url" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="pag_web_has_many_criticas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#eda0bf"
+	 src-table="peliculas.pag_web"
+	 dst-table="peliculas.criticas"
+	 src-required="true" dst-required="false">
+	<column name="fecha">
+		<type name="date" length="0"/>
+	</column>
+</relationship>
+
+<relationship name="pag_web_has_many_caratulas" type="rel1n" layers="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#91e943"
+	 src-table="peliculas.pag_web"
+	 dst-table="peliculas.caratulas"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>
